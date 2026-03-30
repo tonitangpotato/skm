@@ -109,11 +109,15 @@ pub struct Skill {
     // metadata.allowed_tools  — comma-separated tool names
     // metadata.tags           — comma-separated category tags
 }
-/// Validated skill name: 1-64 chars, lowercase, hyphens only.
+/// Validated skill name: 1-64 chars, allowed chars: [a-zA-Z0-9._-]
+/// Stored as lowercase internally for case-insensitive matching.
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct SkillName(String);
 impl SkillName {
+    /// Validates charset [a-zA-Z0-9._-], 1-64 chars. Stores lowercase.
     pub fn new(s: &str) -> Result<Self, ValidationError> { /* ... */ }
+    /// Raw string value (always lowercase).
+    pub fn as_str(&self) -> &str { &self.0 }
 }
 4.2 Skill Parser
 4.3 Skill Registry
@@ -147,10 +151,10 @@ pub struct SkillMetadata {
     pub estimated_tokens: usize,     // Estimated token count of full body
 }
 struct SkillEntry {
-    metadata: SkillMetadata,             // Always loaded
-    full: OnceCell<Skill>,               // Lazily loaded on first activation
-    embeddings: OnceCell<SkillEmbeddings>, // Lazily computed
-    stats: SkillStats,                   // Selection/usage counters
+    metadata: SkillMetadata,                    // Always loaded
+    full: tokio::sync::OnceCell<Skill>,         // Lazily loaded on first activation (async)
+    embeddings: tokio::sync::OnceCell<SkillEmbeddings>, // Lazily computed (async)
+    stats: SkillStats,                          // Selection/usage counters
 }
 impl SkillRegistry {
     /// Create a new registry scanning the given directories.
@@ -189,9 +193,14 @@ Embedding abstraction layer. Trait-based, pluggable backends.
 5.1 Trait Definition
 /// Core embedding provider trait.
 /// All implementations must be Send + Sync for use across async boundaries.
+/// Core embedding provider trait.
+/// All implementations must be Send + Sync for use across async boundaries.
+/// `embed` is async to support both local inference (via spawn_blocking)
+/// and API-based providers (network IO).
+#[async_trait]
 pub trait EmbeddingProvider: Send + Sync {
     /// Generate embeddings for a batch of texts.
-    fn embed(&self, texts: &[&str]) -> Result<Vec<Embedding>, EmbedError>;
+    async fn embed(&self, texts: &[&str]) -> Result<Vec<Embedding>, EmbedError>;
     /// Vector dimensionality of this provider.
     fn dimensions(&self) -> usize;
     /// Human-readable model identifier.
@@ -365,9 +374,12 @@ The core differentiator. Multi-strategy, cascading skill selection engine.
 6.1 Selection Pipeline
 6.2 Strategy Trait
 /// A skill selection strategy. Strategies are composable.
+/// `select` is async — Semantic and LLM strategies require async IO.
+/// Trigger strategy uses trivial async (returns immediately).
+#[async_trait]
 pub trait SelectionStrategy: Send + Sync {
     /// Rank skills for a given query. Returns scored candidates.
-    fn select(
+    async fn select(
         &self,
         query: &str,
 # API providers
@@ -490,10 +502,23 @@ pub struct LlmStrategy {
     client: Arc<dyn LlmClient>,
     config: LlmStrategyConfig,
 }
-/// Minimal LLM client trait — users implement for their LLM provider.
+/// LLM client trait — users implement for their LLM provider.
+/// Both methods are async (all LLM calls are network IO).
+#[async_trait]
 pub trait LlmClient: Send + Sync {
     /// Send a prompt, receive a text response.
-    fn complete(&self, prompt: &str, max_tokens: usize) -> Result<String, LlmErro
+    async fn complete(&self, prompt: &str, max_tokens: usize) -> Result<String, LlmError>;
+    /// Send a prompt with structured output (JSON mode).
+    /// Default implementation calls complete() and parses JSON.
+    async fn complete_structured(
+        &self,
+        prompt: &str,
+        schema: &serde_json::Value,
+        max_tokens: usize,
+    ) -> Result<serde_json::Value, LlmError> {
+        let text = self.complete(prompt, max_tokens).await?;
+        serde_json::from_str(&text).map_err(|e| LlmError::ParseError(e.to_string()))
+    }
 }
 pub struct LlmStrategyConfig {
     pub system_prompt: String,       // Default provided, customizable
@@ -1132,6 +1157,9 @@ Trigger pattern matching
 tokio
 Async runtime
 1.x
+async-trait
+Async trait support
+0.1
 Conditional dependencies:
 Crate
 Feature
@@ -1250,3 +1278,27 @@ Prometheus metrics export
 Comprehensive documentation
 Published to crates.io
 Python bindings via PyO3 (separate crate: ase-python )
+
+## Appendix: Design Review Notes (2026-03-30)
+
+### Changes from initial design (review by Clawd):
+
+1. **`EmbeddingProvider::embed` → async** — Local providers use `spawn_blocking` internally, API providers need network IO. Sync `embed()` would block the tokio runtime.
+
+2. **`SkillName` validation relaxed** — Changed from "lowercase + hyphens only" to `[a-zA-Z0-9._-]` with internal lowercase storage. Real-world skill names use underscores, dots, mixed case.
+
+3. **`LlmClient` trait → async + `complete_structured`** — All LLM calls are network IO. Added `complete_structured()` with default JSON parsing implementation for structured output support.
+
+4. **`SkillEntry` uses `tokio::sync::OnceCell`** — Not `std::cell::OnceCell`. Async lazy loading requires the tokio variant.
+
+5. **`SelectionStrategy::select` → async** — Semantic strategy calls `EmbeddingProvider::embed` (async), LLM strategy calls `LlmClient::complete` (async). Only TriggerStrategy is synchronous internally but wrapped in trivial async.
+
+6. **GID: Added project → crate `part_of` edges** — 8 crate components now connected to project root.
+
+7. **GID: `CascadeSelector` depends on `SelectionStrategy` trait only** — Not on semantic/llm strategies directly. Cascade accepts any strategy via the trait; semantic and llm are optional plugins. This matches the feature flag design (you can use `no-embed` with trigger-only cascade).
+
+8. **GID: `task-embed-tests` depends on `task-embed-simd`** — SIMD functions must be tested.
+
+9. **GID: `task-learn-analytics` depends on `task-core-schema`** — Not on `task-learn-metrics`. Analytics (event recording) and metrics (counters) are independent subsystems.
+
+10. **GID: `task-disclose-context` depends on `task-disclose-tokens`** — ContextManager needs TokenEstimator for budget enforcement.
