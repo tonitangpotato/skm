@@ -1,0 +1,764 @@
+nodes:
+  # === Project Root ===
+  - id: ase
+    type: project
+    title: "agent-skill-engine (ase)"
+    description: "The missing runtime layer for Agent Skills — selection, enforcement, and optimization as a framework-agnostic Rust crate"
+    status: in_progress
+
+  # === Crates (Components) ===
+  - id: crate-core
+    type: component
+    title: "ase-core"
+    description: "Skill schema, parser, registry, filesystem watching"
+    status: in_progress
+
+  - id: crate-embed
+    type: component
+    title: "ase-embed"
+    description: "Embedding abstraction + providers (BGE-M3, Qwen3, MiniLM, API)"
+    status: todo
+
+  - id: crate-select
+    type: component
+    title: "ase-select"
+    description: "Multi-strategy cascading selection engine"
+    status: todo
+
+  - id: crate-disclose
+    type: component
+    title: "ase-disclose"
+    description: "Progressive disclosure / context management"
+    status: todo
+
+  - id: crate-enforce
+    type: component
+    title: "ase-enforce"
+    description: "Execution guardrails, hooks, policy engine"
+    status: todo
+
+  - id: crate-learn
+    type: component
+    title: "ase-learn"
+    description: "Evaluation, metrics, optimization, usage analytics"
+    status: todo
+
+  - id: crate-cli
+    type: component
+    title: "ase-cli"
+    description: "Developer CLI (ase command)"
+    status: todo
+
+  - id: crate-facade
+    type: component
+    title: "ase (facade)"
+    description: "Re-exports everything for single-dependency usage"
+    status: todo
+
+  # === ase-core Tasks ===
+  - id: task-workspace-setup
+    type: task
+    title: "Set up Cargo workspace with all crate stubs"
+    description: "Create workspace Cargo.toml, all crate directories, basic lib.rs for each, feature flags"
+    status: todo
+
+  - id: task-core-schema
+    type: task
+    title: "Skill schema types"
+    description: "Skill, SkillName, SkillMetadata, SkillEntry structs compatible with agentskills.io"
+    status: todo
+
+  - id: task-core-parser
+    type: task
+    title: "SKILL.md parser"
+    description: "Parse YAML frontmatter + markdown body, parse_file, parse_str, parse_metadata"
+    status: todo
+
+  - id: task-core-registry
+    type: task
+    title: "Skill registry"
+    description: "In-memory registry with lazy loading, catalog(), get(), register/deregister"
+    status: todo
+
+  - id: task-core-watcher
+    type: task
+    title: "Filesystem watcher"
+    description: "notify-based file watching, auto-refresh on SKILL.md changes"
+    status: todo
+
+  - id: task-core-errors
+    type: task
+    title: "Error types"
+    description: "CoreError enum with thiserror, ValidationError, ParseError"
+    status: todo
+
+  - id: task-core-tests
+    type: task
+    title: "Core unit tests"
+    description: "Tests for schema validation, parser (valid/invalid/edge cases), registry operations"
+    status: todo
+
+  # === ase-embed Tasks ===
+  - id: task-embed-trait
+    type: task
+    title: "EmbeddingProvider trait"
+    description: "Core trait + Embedding struct with cosine_similarity, dot_product"
+    status: todo
+
+  - id: task-embed-multicomp
+    type: task
+    title: "Multi-component embeddings"
+    description: "SkillEmbeddings, ComponentWeights, weighted scoring"
+    status: todo
+
+  - id: task-embed-index
+    type: task
+    title: "EmbeddingIndex"
+    description: "Persistent index with bincode, build/load/save/query/query_adaptive"
+    status: todo
+
+  - id: task-embed-bge
+    type: task
+    title: "BGE-M3 provider"
+    description: "Default provider via fastembed, ONNX quantized, 100+ languages"
+    status: todo
+
+  - id: task-embed-minilm
+    type: task
+    title: "MiniLM provider"
+    description: "Lightweight English-only provider via fastembed"
+    status: todo
+
+  - id: task-embed-api
+    type: task
+    title: "API providers"
+    description: "OpenAI, Cohere, OpenAI-compatible endpoint providers"
+    status: todo
+
+  - id: task-embed-simd
+    type: task
+    title: "SIMD optimizations"
+    description: "SIMD dot product, normalize, batch cosine similarity"
+    status: todo
+
+  - id: task-embed-tests
+    type: task
+    title: "Embed unit tests"
+    description: "Mock provider tests, index build/query, cosine similarity"
+    status: todo
+
+  # === ase-select Tasks ===
+  - id: task-select-trait
+    type: task
+    title: "SelectionStrategy trait"
+    description: "Core trait, SelectionResult, Confidence, SelectionContext, LatencyClass"
+    status: todo
+
+  - id: task-select-trigger
+    type: task
+    title: "Trigger strategy"
+    description: "Regex/keyword/glob fast-path matching from metadata.triggers"
+    status: todo
+
+  - id: task-select-semantic
+    type: task
+    title: "Semantic strategy"
+    description: "Embedding-based selection with configurable thresholds and adaptive-k"
+    status: todo
+
+  - id: task-select-llm
+    type: task
+    title: "LLM strategy"
+    description: "LlmClient trait, structured prompt, JSON response parsing"
+    status: todo
+
+  - id: task-select-fewshot
+    type: task
+    title: "Few-shot enhanced strategy"
+    description: "Dynamic few-shot example injection via semantic similarity"
+    status: todo
+
+  - id: task-select-cascade
+    type: task
+    title: "CascadeSelector"
+    description: "Builder pattern, cascade logic, timeout, merge strategies (MaxScore, WeightedAverage, RRF)"
+    status: todo
+
+  - id: task-select-tests
+    type: task
+    title: "Select unit tests"
+    description: "Per-strategy tests, cascade integration, confidence propagation"
+    status: todo
+
+  # === ase-disclose Tasks ===
+  - id: task-disclose-levels
+    type: task
+    title: "Disclosure levels"
+    description: "Catalog (L0), Activated (L1), Referenced (L2) enums and types"
+    status: todo
+
+  - id: task-disclose-context
+    type: task
+    title: "ContextManager"
+    description: "Token budgeting, catalog_prompt, activate, load_reference, deactivate"
+    status: todo
+
+  - id: task-disclose-tokens
+    type: task
+    title: "TokenEstimator"
+    description: "chars-per-token heuristic, CJK-aware estimation"
+    status: todo
+
+  - id: task-disclose-tests
+    type: task
+    title: "Disclose unit tests"
+    description: "Budget enforcement, activation/deactivation, token estimation accuracy"
+    status: todo
+
+  # === ase-enforce Tasks ===
+  - id: task-enforce-hooks
+    type: task
+    title: "Hook system"
+    description: "BeforeSkillActivation, AfterSkillExecution traits, HookDecision enum"
+    status: todo
+
+  - id: task-enforce-policy
+    type: task
+    title: "Policy engine"
+    description: "PolicyRule, PolicyAction, Condition, YAML policy file loading"
+    status: todo
+
+  - id: task-enforce-validator
+    type: task
+    title: "Output validator"
+    description: "Validator trait, JsonSchemaValidator, RegexValidator, LengthValidator"
+    status: todo
+
+  - id: task-enforce-pipeline
+    type: task
+    title: "EnforcementPipeline"
+    description: "Combined pipeline with hooks + policy + validators + audit log"
+    status: todo
+
+  - id: task-enforce-tests
+    type: task
+    title: "Enforce unit tests"
+    description: "Hook cancel/modify/allow, policy evaluation, validator edge cases"
+    status: todo
+
+  # === ase-learn Tasks ===
+  - id: task-learn-harness
+    type: task
+    title: "Trigger test harness"
+    description: "TestCase, TestSuite, TestReport, multi-run trigger rate calculation"
+    status: todo
+
+  - id: task-learn-metrics
+    type: task
+    title: "Selection metrics"
+    description: "Real-time counters, histograms, per-strategy/per-skill tracking, Prometheus export"
+    status: todo
+
+  - id: task-learn-optimizer
+    type: task
+    title: "Description optimizer"
+    description: "LLM-driven iterative description optimization with test harness evaluation"
+    status: todo
+
+  - id: task-learn-analytics
+    type: task
+    title: "Usage analytics"
+    description: "SelectionEvent, SQLite/InMemory stores, event recording and querying"
+    status: todo
+
+  - id: task-learn-tests
+    type: task
+    title: "Learn unit tests"
+    description: "Test harness execution, metrics accuracy, analytics store"
+    status: todo
+
+  # === ase-cli Tasks ===
+  - id: task-cli-init
+    type: task
+    title: "CLI: init + validate + list"
+    description: "Create new skill from template, validate SKILL.md files, list skills"
+    status: todo
+
+  - id: task-cli-select
+    type: task
+    title: "CLI: select (interactive)"
+    description: "Interactive skill selection for debugging"
+    status: todo
+
+  - id: task-cli-test
+    type: task
+    title: "CLI: test + bench"
+    description: "Run trigger test suites, benchmark selection performance"
+    status: todo
+
+  - id: task-cli-optimize
+    type: task
+    title: "CLI: optimize + stats"
+    description: "Optimize descriptions, show usage analytics"
+    status: todo
+
+  - id: task-cli-serve
+    type: task
+    title: "CLI: serve (HTTP API)"
+    description: "HTTP server with /v1/select, /v1/activate, /v1/skills, /v1/metrics endpoints"
+    status: todo
+
+  # === Integration & Release ===
+  - id: task-facade
+    type: task
+    title: "Facade crate + prelude"
+    description: "Re-export all crates, prelude module, quick-start example"
+    status: todo
+
+  - id: task-golden-suite
+    type: task
+    title: "Golden test suite"
+    description: "20 example skills, 200 test queries, expected outcomes"
+    status: todo
+
+  - id: task-benchmarks
+    type: task
+    title: "Criterion benchmarks"
+    description: "trigger_match, semantic_search, cascade_full, embedding_batch, simd_dot"
+    status: todo
+
+  - id: task-docs
+    type: task
+    title: "Documentation"
+    description: "README, rustdoc, examples/, CHANGELOG"
+    status: todo
+
+  - id: task-publish
+    type: task
+    title: "Publish to crates.io"
+    description: "All crates published, CI/CD, GitHub Actions"
+    status: todo
+
+  - id: task-python
+    type: task
+    title: "Python bindings (PyO3)"
+    description: "ase-python crate wrapping core + select + embed for pip install"
+    status: todo
+
+edges:
+  # Workspace setup is first
+  - from: task-core-schema
+    to: task-workspace-setup
+    relation: depends_on
+
+  - from: task-core-parser
+    to: task-core-schema
+    relation: depends_on
+
+  - from: task-core-errors
+    to: task-workspace-setup
+    relation: depends_on
+
+  - from: task-core-registry
+    to: task-core-parser
+    relation: depends_on
+
+  - from: task-core-registry
+    to: task-core-errors
+    relation: depends_on
+
+  - from: task-core-watcher
+    to: task-core-registry
+    relation: depends_on
+
+  - from: task-core-tests
+    to: task-core-watcher
+    relation: depends_on
+
+  # Embed depends on core
+  - from: task-embed-trait
+    to: task-core-schema
+    relation: depends_on
+
+  - from: task-embed-multicomp
+    to: task-embed-trait
+    relation: depends_on
+
+  - from: task-embed-index
+    to: task-embed-multicomp
+    relation: depends_on
+
+  - from: task-embed-bge
+    to: task-embed-trait
+    relation: depends_on
+
+  - from: task-embed-minilm
+    to: task-embed-trait
+    relation: depends_on
+
+  - from: task-embed-api
+    to: task-embed-trait
+    relation: depends_on
+
+  - from: task-embed-simd
+    to: task-embed-trait
+    relation: depends_on
+
+  - from: task-embed-tests
+    to: task-embed-index
+    relation: depends_on
+
+  - from: task-embed-tests
+    to: task-embed-bge
+    relation: depends_on
+
+  # Select depends on core + embed
+  - from: task-select-trait
+    to: task-core-schema
+    relation: depends_on
+
+  - from: task-select-trigger
+    to: task-select-trait
+    relation: depends_on
+
+  - from: task-select-trigger
+    to: task-core-registry
+    relation: depends_on
+
+  - from: task-select-semantic
+    to: task-select-trait
+    relation: depends_on
+
+  - from: task-select-semantic
+    to: task-embed-index
+    relation: depends_on
+
+  - from: task-select-llm
+    to: task-select-trait
+    relation: depends_on
+
+  - from: task-select-fewshot
+    to: task-select-semantic
+    relation: depends_on
+
+  - from: task-select-cascade
+    to: task-select-trigger
+    relation: depends_on
+
+  - from: task-select-cascade
+    to: task-select-semantic
+    relation: depends_on
+
+  - from: task-select-cascade
+    to: task-select-llm
+    relation: depends_on
+
+  - from: task-select-tests
+    to: task-select-cascade
+    relation: depends_on
+
+  # Disclose depends on core
+  - from: task-disclose-levels
+    to: task-core-schema
+    relation: depends_on
+
+  - from: task-disclose-context
+    to: task-disclose-levels
+    relation: depends_on
+
+  - from: task-disclose-context
+    to: task-core-registry
+    relation: depends_on
+
+  - from: task-disclose-tokens
+    to: task-disclose-levels
+    relation: depends_on
+
+  - from: task-disclose-tests
+    to: task-disclose-context
+    relation: depends_on
+
+  # Enforce depends on core
+  - from: task-enforce-hooks
+    to: task-core-schema
+    relation: depends_on
+
+  - from: task-enforce-policy
+    to: task-enforce-hooks
+    relation: depends_on
+
+  - from: task-enforce-validator
+    to: task-core-schema
+    relation: depends_on
+
+  - from: task-enforce-pipeline
+    to: task-enforce-hooks
+    relation: depends_on
+
+  - from: task-enforce-pipeline
+    to: task-enforce-policy
+    relation: depends_on
+
+  - from: task-enforce-pipeline
+    to: task-enforce-validator
+    relation: depends_on
+
+  - from: task-enforce-tests
+    to: task-enforce-pipeline
+    relation: depends_on
+
+  # Learn depends on core + select
+  - from: task-learn-harness
+    to: task-select-cascade
+    relation: depends_on
+
+  - from: task-learn-metrics
+    to: task-select-trait
+    relation: depends_on
+
+  - from: task-learn-optimizer
+    to: task-learn-harness
+    relation: depends_on
+
+  - from: task-learn-optimizer
+    to: task-select-llm
+    relation: depends_on
+
+  - from: task-learn-analytics
+    to: task-learn-metrics
+    relation: depends_on
+
+  - from: task-learn-tests
+    to: task-learn-analytics
+    relation: depends_on
+
+  # CLI depends on everything
+  - from: task-cli-init
+    to: task-core-tests
+    relation: depends_on
+
+  - from: task-cli-select
+    to: task-select-cascade
+    relation: depends_on
+
+  - from: task-cli-test
+    to: task-learn-harness
+    relation: depends_on
+
+  - from: task-cli-optimize
+    to: task-learn-optimizer
+    relation: depends_on
+
+  - from: task-cli-serve
+    to: task-cli-select
+    relation: depends_on
+
+  # Integration & release
+  - from: task-facade
+    to: task-core-tests
+    relation: depends_on
+
+  - from: task-facade
+    to: task-select-tests
+    relation: depends_on
+
+  - from: task-facade
+    to: task-embed-tests
+    relation: depends_on
+
+  - from: task-facade
+    to: task-disclose-tests
+    relation: depends_on
+
+  - from: task-facade
+    to: task-enforce-tests
+    relation: depends_on
+
+  - from: task-golden-suite
+    to: task-facade
+    relation: depends_on
+
+  - from: task-benchmarks
+    to: task-facade
+    relation: depends_on
+
+  - from: task-docs
+    to: task-facade
+    relation: depends_on
+
+  - from: task-publish
+    to: task-golden-suite
+    relation: depends_on
+
+  - from: task-publish
+    to: task-benchmarks
+    relation: depends_on
+
+  - from: task-publish
+    to: task-docs
+    relation: depends_on
+
+  - from: task-python
+    to: task-facade
+    relation: depends_on
+
+  # Component containment
+  - from: task-core-schema
+    to: crate-core
+    relation: part_of
+
+  - from: task-core-parser
+    to: crate-core
+    relation: part_of
+
+  - from: task-core-registry
+    to: crate-core
+    relation: part_of
+
+  - from: task-core-watcher
+    to: crate-core
+    relation: part_of
+
+  - from: task-core-errors
+    to: crate-core
+    relation: part_of
+
+  - from: task-core-tests
+    to: crate-core
+    relation: part_of
+
+  - from: task-embed-trait
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-multicomp
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-index
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-bge
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-minilm
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-api
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-simd
+    to: crate-embed
+    relation: part_of
+
+  - from: task-embed-tests
+    to: crate-embed
+    relation: part_of
+
+  - from: task-select-trait
+    to: crate-select
+    relation: part_of
+
+  - from: task-select-trigger
+    to: crate-select
+    relation: part_of
+
+  - from: task-select-semantic
+    to: crate-select
+    relation: part_of
+
+  - from: task-select-llm
+    to: crate-select
+    relation: part_of
+
+  - from: task-select-fewshot
+    to: crate-select
+    relation: part_of
+
+  - from: task-select-cascade
+    to: crate-select
+    relation: part_of
+
+  - from: task-select-tests
+    to: crate-select
+    relation: part_of
+
+  - from: task-disclose-levels
+    to: crate-disclose
+    relation: part_of
+
+  - from: task-disclose-context
+    to: crate-disclose
+    relation: part_of
+
+  - from: task-disclose-tokens
+    to: crate-disclose
+    relation: part_of
+
+  - from: task-disclose-tests
+    to: crate-disclose
+    relation: part_of
+
+  - from: task-enforce-hooks
+    to: crate-enforce
+    relation: part_of
+
+  - from: task-enforce-policy
+    to: crate-enforce
+    relation: part_of
+
+  - from: task-enforce-validator
+    to: crate-enforce
+    relation: part_of
+
+  - from: task-enforce-pipeline
+    to: crate-enforce
+    relation: part_of
+
+  - from: task-enforce-tests
+    to: crate-enforce
+    relation: part_of
+
+  - from: task-learn-harness
+    to: crate-learn
+    relation: part_of
+
+  - from: task-learn-metrics
+    to: crate-learn
+    relation: part_of
+
+  - from: task-learn-optimizer
+    to: crate-learn
+    relation: part_of
+
+  - from: task-learn-analytics
+    to: crate-learn
+    relation: part_of
+
+  - from: task-learn-tests
+    to: crate-learn
+    relation: part_of
+
+  - from: task-cli-init
+    to: crate-cli
+    relation: part_of
+
+  - from: task-cli-select
+    to: crate-cli
+    relation: part_of
+
+  - from: task-cli-test
+    to: crate-cli
+    relation: part_of
+
+  - from: task-cli-optimize
+    to: crate-cli
+    relation: part_of
+
+  - from: task-cli-serve
+    to: crate-cli
+    relation: part_of
