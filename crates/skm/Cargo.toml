@@ -3,8 +3,12 @@ name = "skm"
 description = "Agent Skill Engine - Selection, enforcement, and optimization for SKILL.md"
 version.workspace = true
 edition.workspace = true
+authors.workspace = true
 license.workspace = true
 repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
 rust-version.workspace = true
 
 [features]

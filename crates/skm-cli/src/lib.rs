@@ -14,6 +14,3 @@
 //! - `serve` - Start HTTP API server
 
 pub mod commands;
-
-#[cfg(feature = "http-server")]
-pub mod server;

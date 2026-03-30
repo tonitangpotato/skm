@@ -3,9 +3,6 @@ use tracing_subscriber::{fmt, EnvFilter};
 
 mod commands;
 
-#[cfg(feature = "http-server")]
-mod server;
-
 /// Agent Skill Engine CLI
 #[derive(Parser)]
 #[command(name = "skm")]

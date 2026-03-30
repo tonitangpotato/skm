@@ -14,20 +14,23 @@ members = [
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Agent Skill Engine Contributors"]
+authors = ["tonitangpotato"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/your-org/agent-skill-engine"
+repository = "https://github.com/tonitangpotato/skm"
+homepage = "https://github.com/tonitangpotato/skm"
+keywords = ["agent", "skills", "ai", "llm"]
+categories = ["development-tools"]
 rust-version = "1.85"
 
 [workspace.dependencies]
 # Internal crates
-skm-core = { path = "crates/skm-core" }
-skm-embed = { path = "crates/skm-embed" }
-skm-select = { path = "crates/skm-select" }
-skm-disclose = { path = "crates/skm-disclose" }
-skm-enforce = { path = "crates/skm-enforce" }
-skm-learn = { path = "crates/skm-learn" }
-skm-cli = { path = "crates/skm-cli" }
+skm-core = { version = "0.1.0", path = "crates/skm-core" }
+skm-embed = { version = "0.1.0", path = "crates/skm-embed" }
+skm-select = { version = "0.1.0", path = "crates/skm-select" }
+skm-disclose = { version = "0.1.0", path = "crates/skm-disclose" }
+skm-enforce = { version = "0.1.0", path = "crates/skm-enforce" }
+skm-learn = { version = "0.1.0", path = "crates/skm-learn" }
+skm-cli = { version = "0.1.0", path = "crates/skm-cli" }
 
 # Serialization
 serde = { version = "1.0", features = ["derive"] }
@@ -62,6 +65,7 @@ reqwest = { version = "0.12", features = ["json"] }
 
 # HTTP server
 axum = "0.8"
+tower-http = { version = "0.6", features = ["cors"] }
 
 # CLI
 clap = { version = "4.5", features = ["derive"] }
