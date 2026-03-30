@@ -1,0 +1,39 @@
+[package]
+name = "ase-cli"
+description = "Developer CLI for Agent Skills"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "ase"
+path = "src/main.rs"
+
+[features]
+default = []
+http-server = ["dep:axum"]
+
+[dependencies]
+ase-core = { workspace = true }
+ase-embed = { workspace = true }
+ase-select = { workspace = true }
+ase-disclose = { workspace = true }
+ase-enforce = { workspace = true }
+ase-learn = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tokio = { workspace = true }
+clap = { workspace = true }
+anyhow = "1.0"
+
+# Optional: HTTP server
+axum = { workspace = true, optional = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

@@ -1,0 +1,79 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/ase-core",
+    "crates/ase-embed",
+    "crates/ase-select",
+    "crates/ase-disclose",
+    "crates/ase-enforce",
+    "crates/ase-learn",
+    "crates/ase-cli",
+    "crates/ase",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Agent Skill Engine Contributors"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-org/agent-skill-engine"
+rust-version = "1.85"
+
+[workspace.dependencies]
+# Internal crates
+ase-core = { path = "crates/ase-core" }
+ase-embed = { path = "crates/ase-embed" }
+ase-select = { path = "crates/ase-select" }
+ase-disclose = { path = "crates/ase-disclose" }
+ase-enforce = { path = "crates/ase-enforce" }
+ase-learn = { path = "crates/ase-learn" }
+ase-cli = { path = "crates/ase-cli" }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+bincode = "1.3"
+
+# Error handling & logging
+thiserror = "2.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+async-trait = "0.1"
+
+# Filesystem watching
+notify = "7.0"
+
+# Caching
+lru = "0.12"
+
+# Pattern matching
+regex = "1.10"
+glob = "0.3"
+
+# Embeddings (local)
+fastembed = "4"
+
+# HTTP client (for API providers)
+reqwest = { version = "0.12", features = ["json"] }
+
+# HTTP server
+axum = "0.8"
+
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+
+# Database
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+# Metrics
+hdrhistogram = "7.5"
+
+# Hashing
+xxhash-rust = { version = "0.8", features = ["xxh64"] }
+
+# Testing
+tempfile = "3.15"

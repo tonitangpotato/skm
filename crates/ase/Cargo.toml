@@ -1,0 +1,29 @@
+[package]
+name = "ase"
+description = "Agent Skill Engine - Selection, enforcement, and optimization for SKILL.md"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[features]
+default = ["embed-bge-m3"]
+embed-bge-m3 = ["ase-embed/embed-bge-m3"]
+embed-minilm = ["ase-embed/embed-minilm"]
+embed-openai = ["ase-embed/embed-openai"]
+embed-cohere = ["ase-embed/embed-cohere"]
+embed-compat = ["ase-embed/embed-compat"]
+no-embed = ["ase-embed/no-embed"]
+analytics-sqlite = ["ase-learn/analytics-sqlite"]
+analytics-memory = ["ase-learn/analytics-memory"]
+http-server = ["ase-cli/http-server"]
+
+[dependencies]
+ase-core = { workspace = true }
+ase-embed = { workspace = true }
+ase-select = { workspace = true }
+ase-disclose = { workspace = true }
+ase-enforce = { workspace = true }
+ase-learn = { workspace = true }
+ase-cli = { workspace = true }
