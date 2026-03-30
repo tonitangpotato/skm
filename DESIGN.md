@@ -1272,12 +1272,29 @@ skm-learn : Description optimizer
 skm-embed : Qwen3, GTE, API providers
 skm-select : LLM strategy, few-shot enhanced
 skm-cli : optimize
-v1.0 — Production
-skm-cli : serve  (HTTP API)
+v1.0 — Production ✅
+skm-cli : serve  (HTTP API via axum)
 Prometheus metrics export
 Comprehensive documentation
-Published to crates.io
-Python bindings via PyO3 (separate crate: ase-python )
+Published to crates.io (all 8 crates)
+
+v1.1 — Language Bindings
+skm-python : PyO3 bindings via maturin → `pip install skm`
+  - Core types (SkillMetadata, SkillRegistry) as Python classes
+  - CascadeSelector with async/await support
+  - Embedding providers (BgeM3Provider, MiniLmProvider)
+  - Enforcement pipeline with Python callable hooks
+  - pytest suite + .pyi type stubs
+  - CI: maturin wheels for linux/macos/windows (x86_64 + aarch64)
+  - Published to PyPI
+
+skm-node : NAPI-RS bindings → `npm install skm`
+  - Core types as JS classes with full TypeScript definitions
+  - CascadeSelector with native async/await
+  - Embedding providers
+  - Jest/vitest test suite + .d.ts type definitions
+  - CI: napi-rs native modules for linux/macos/windows
+  - Published to npm
 
 ## Appendix: Design Review Notes (2026-03-30)
 

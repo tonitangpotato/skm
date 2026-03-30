@@ -799,3 +799,224 @@ edges:
   - from: task-cli-serve
     to: crate-cli
     relation: part_of
+
+  # === Language Bindings ===
+  - id: crate-python
+    type: component
+    title: "skm-python"
+    description: "PyO3 bindings — pip install skm, native Python experience with Rust performance"
+    status: todo
+
+  - id: crate-node
+    type: component
+    title: "skm-node"
+    description: "NAPI-RS bindings — npm install skm, native Node.js/TypeScript experience with Rust performance"
+    status: todo
+
+  # === Python Bindings Tasks ===
+  - id: task-python-setup
+    type: task
+    title: "PyO3 project setup with maturin"
+    description: "Create crates/skm-python with maturin scaffold, pyproject.toml, Cargo.toml with pyo3 dep"
+    status: todo
+
+  - id: task-python-core-bindings
+    type: task
+    title: "Core type bindings (SkillMetadata, SkillRegistry)"
+    description: "Wrap SkillMetadata, SkillRegistry, SkillEntry as Python classes with #[pyclass]. Support async via pyo3-asyncio."
+    status: todo
+
+  - id: task-python-select-bindings
+    type: task
+    title: "Selection bindings (CascadeSelector, strategies)"
+    description: "Wrap CascadeSelector, TriggerStrategy, SelectionContext. Python users call selector.select('query') and get list of results."
+    status: todo
+
+  - id: task-python-embed-bindings
+    type: task
+    title: "Embedding provider bindings"
+    description: "Wrap BgeM3Provider, MiniLmProvider. Allow Python users to create providers and pass to selector."
+    status: todo
+
+  - id: task-python-enforce-bindings
+    type: task
+    title: "Enforcement bindings (hooks, policy)"
+    description: "Wrap EnforcementPipeline, PolicyEngine. Python users can define hooks as Python callables."
+    status: todo
+
+  - id: task-python-cli
+    type: task
+    title: "Python CLI entry point"
+    description: "Add skm CLI as Python console_script entry point, wrapping the Rust CLI or providing Python-native commands including 'skm serve'"
+    status: todo
+
+  - id: task-python-tests
+    type: task
+    title: "Python test suite"
+    description: "pytest test suite covering all bindings, type hints (.pyi stubs), CI with maturin build + test"
+    status: todo
+
+  - id: task-python-publish
+    type: task
+    title: "Publish to PyPI"
+    description: "Set up GitHub Actions with maturin to build wheels for linux/macos/windows (x86_64 + aarch64), publish to PyPI"
+    status: todo
+
+  # === Node.js Bindings Tasks ===
+  - id: task-node-setup
+    type: task
+    title: "NAPI-RS project setup"
+    description: "Create crates/skm-node with napi-rs scaffold, package.json, Cargo.toml with napi deps"
+    status: todo
+
+  - id: task-node-core-bindings
+    type: task
+    title: "Core type bindings for Node.js"
+    description: "Wrap SkillMetadata, SkillRegistry as JS classes with #[napi]. Full TypeScript type definitions."
+    status: todo
+
+  - id: task-node-select-bindings
+    type: task
+    title: "Selection bindings for Node.js"
+    description: "Wrap CascadeSelector, strategies. async/await native support via napi-rs async."
+    status: todo
+
+  - id: task-node-embed-bindings
+    type: task
+    title: "Embedding provider bindings for Node.js"
+    description: "Wrap embedding providers for Node.js usage."
+    status: todo
+
+  - id: task-node-tests
+    type: task
+    title: "Node.js test suite"
+    description: "Jest/vitest test suite, TypeScript definitions (.d.ts), CI with napi-rs build + test"
+    status: todo
+
+  - id: task-node-publish
+    type: task
+    title: "Publish to npm"
+    description: "Set up GitHub Actions with napi-rs to build native modules for linux/macos/windows, publish to npm"
+    status: todo
+
+  # === Bindings dependency edges ===
+  - from: crate-python
+    to: skm
+    relation: part_of
+
+  - from: crate-node
+    to: skm
+    relation: part_of
+
+  - from: task-python-setup
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-core-bindings
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-select-bindings
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-embed-bindings
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-enforce-bindings
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-cli
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-tests
+    to: crate-python
+    relation: part_of
+
+  - from: task-python-publish
+    to: crate-python
+    relation: part_of
+
+  - from: task-node-setup
+    to: crate-node
+    relation: part_of
+
+  - from: task-node-core-bindings
+    to: crate-node
+    relation: part_of
+
+  - from: task-node-select-bindings
+    to: crate-node
+    relation: part_of
+
+  - from: task-node-embed-bindings
+    to: crate-node
+    relation: part_of
+
+  - from: task-node-tests
+    to: crate-node
+    relation: part_of
+
+  - from: task-node-publish
+    to: crate-node
+    relation: part_of
+
+  # Task dependencies
+  - from: task-python-core-bindings
+    to: task-python-setup
+    relation: depends_on
+
+  - from: task-python-select-bindings
+    to: task-python-core-bindings
+    relation: depends_on
+
+  - from: task-python-embed-bindings
+    to: task-python-core-bindings
+    relation: depends_on
+
+  - from: task-python-enforce-bindings
+    to: task-python-core-bindings
+    relation: depends_on
+
+  - from: task-python-cli
+    to: task-python-select-bindings
+    relation: depends_on
+
+  - from: task-python-tests
+    to: task-python-select-bindings
+    relation: depends_on
+
+  - from: task-python-tests
+    to: task-python-embed-bindings
+    relation: depends_on
+
+  - from: task-python-publish
+    to: task-python-tests
+    relation: depends_on
+
+  - from: task-node-core-bindings
+    to: task-node-setup
+    relation: depends_on
+
+  - from: task-node-select-bindings
+    to: task-node-core-bindings
+    relation: depends_on
+
+  - from: task-node-embed-bindings
+    to: task-node-core-bindings
+    relation: depends_on
+
+  - from: task-node-tests
+    to: task-node-select-bindings
+    relation: depends_on
+
+  - from: task-node-tests
+    to: task-node-embed-bindings
+    relation: depends_on
+
+  - from: task-node-publish
+    to: task-node-tests
+    relation: depends_on
