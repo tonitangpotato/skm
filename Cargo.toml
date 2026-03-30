@@ -11,6 +11,7 @@ members = [
     "crates/skm",
     "crates/skm-node",
     "crates/skm-python",
+    "examples/mini-agent",
 ]
 
 [workspace.package]

@@ -1,0 +1,12 @@
+[package]
+name = "mini-agent"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "A minimal agent demonstrating SKM trigger-based skill selection"
+
+[dependencies]
+skm-core = { path = "../../crates/skm-core" }
+skm-select = { path = "../../crates/skm-select" }
+tokio = { version = "1.0", features = ["full"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
