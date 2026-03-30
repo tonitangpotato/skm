@@ -1,14 +1,14 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/skx-core",
-    "crates/skx-embed",
-    "crates/skx-select",
-    "crates/skx-disclose",
-    "crates/skx-enforce",
-    "crates/skx-learn",
-    "crates/skx-cli",
-    "crates/skx",
+    "crates/skm-core",
+    "crates/skm-embed",
+    "crates/skm-select",
+    "crates/skm-disclose",
+    "crates/skm-enforce",
+    "crates/skm-learn",
+    "crates/skm-cli",
+    "crates/skm",
 ]
 
 [workspace.package]
@@ -21,13 +21,13 @@ rust-version = "1.85"
 
 [workspace.dependencies]
 # Internal crates
-skx-core = { path = "crates/skx-core" }
-skx-embed = { path = "crates/skx-embed" }
-skx-select = { path = "crates/skx-select" }
-skx-disclose = { path = "crates/skx-disclose" }
-skx-enforce = { path = "crates/skx-enforce" }
-skx-learn = { path = "crates/skx-learn" }
-skx-cli = { path = "crates/skx-cli" }
+skm-core = { path = "crates/skm-core" }
+skm-embed = { path = "crates/skm-embed" }
+skm-select = { path = "crates/skm-select" }
+skm-disclose = { path = "crates/skm-disclose" }
+skm-enforce = { path = "crates/skm-enforce" }
+skm-learn = { path = "crates/skm-learn" }
+skm-cli = { path = "crates/skm-cli" }
 
 # Serialization
 serde = { version = "1.0", features = ["derive"] }

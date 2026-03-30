@@ -1,0 +1,39 @@
+[package]
+name = "skm-cli"
+description = "Developer CLI for Agent Skills"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "skm"
+path = "src/main.rs"
+
+[features]
+default = []
+http-server = ["dep:axum"]
+
+[dependencies]
+skm-core = { workspace = true }
+skm-embed = { workspace = true }
+skm-select = { workspace = true }
+skm-disclose = { workspace = true }
+skm-enforce = { workspace = true }
+skm-learn = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tokio = { workspace = true }
+clap = { workspace = true }
+anyhow = "1.0"
+
+# Optional: HTTP server
+axum = { workspace = true, optional = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

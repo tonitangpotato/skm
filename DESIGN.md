@@ -1,4 +1,4 @@
-# agent-skill-engine (skx) — Complete Design Document
+# agent-skill-engine (skm) — Complete Design Document
 
 agent-skill-engine — Complete Design Document
 The missing runtime layer for Agent Skills: selection, enforcement, and optimization as a
@@ -66,13 +66,13 @@ model, local skill files). API embeddings and remote registries are opt-in.
 agent-skill-engine/
 ├── Cargo.toml                      # Workspace root
 ├── crates/
-│   ├── skx-core/                   # Skill schema, parser, registry
-│   ├── skx-select/                 # Multi-strategy selection engine
-│   ├── skx-embed/                  # Embedding abstraction + providers
-│   ├── skx-disclose/               # Progressive disclosure / context management
-│   ├── skx-enforce/                # Execution guardrails & hooks
-│   ├── skx-learn/                  # Evaluation, metrics, optimization
-│   ├── skx-cli/                    # Developer CLI (`skx`)
+│   ├── skm-core/                   # Skill schema, parser, registry
+│   ├── skm-select/                 # Multi-strategy selection engine
+│   ├── skm-embed/                  # Embedding abstraction + providers
+│   ├── skm-disclose/               # Progressive disclosure / context management
+│   ├── skm-enforce/                # Execution guardrails & hooks
+│   ├── skm-learn/                  # Evaluation, metrics, optimization
+│   ├── skm-cli/                    # Developer CLI (`skm`)
 │   └── ase/                        # Facade crate re-exporting everything
 ├── models/                         # Model weight download scripts
 ├── tests/                          # Integration tests
@@ -80,14 +80,14 @@ agent-skill-engine/
 └── examples/                       # Usage examples
 Crate Dependency Graph
 ase (facade)
- ├── skx-core
- ├── skx-select ──→ skx-core, skx-embed, skx-disclose
- ├── skx-embed
- ├── skx-disclose ──→ skx-core
- ├── skx-enforce ──→ skx-core
- ├── skx-learn ──→ skx-core, skx-select
- └── skx-cli ──→ all of the above
-4. Crate: skx-core
+ ├── skm-core
+ ├── skm-select ──→ skm-core, skm-embed, skm-disclose
+ ├── skm-embed
+ ├── skm-disclose ──→ skm-core
+ ├── skm-enforce ──→ skm-core
+ ├── skm-learn ──→ skm-core, skm-select
+ └── skm-cli ──→ all of the above
+4. Crate: skm-core
 4.1 Skill Schema
 Fully compatible with the agentskills.io specification. Parses SKILL.md frontmatter + body.
 /// A parsed Agent Skill, compatible with agentskills.io spec.
@@ -188,7 +188,7 @@ pub enum CoreError {
     #[error("Duplicate skill name: {0}")]
     Duplicate(SkillName),
 }
-5. Crate: skx-embed
+5. Crate: skm-embed
 Embedding abstraction layer. Trait-based, pluggable backends.
 5.1 Trait Definition
 /// Core embedding provider trait.
@@ -369,7 +369,7 @@ embed-bge-m3   = ["dep:fastembed"]              # 571MB, 100+ langs ★ recommen
 embed-qwen3    = ["dep:fastembed", "dep:candle-core", "dep:candle-nn"]  # Best zh
 embed-gte      = ["dep:ort", "dep:tokenizers"]  # 305M, lightest multilingual
 embed-minilm   = ["dep:fastembed"]              # 22MB, English only
-6. Crate: skx-select
+6. Crate: skm-select
 The core differentiator. Multi-strategy, cascading skill selection engine.
 6.1 Selection Pipeline
 6.2 Strategy Trait
@@ -609,7 +609,7 @@ impl CascadeSelectorBuilder {
     pub fn build(self, registry: &SkillRegistry) -> Result<CascadeSelector>;
 }
 Usage:
-7. Crate: skx-disclose
+7. Crate: skm-disclose
 Progressive disclosure — manages what’s loaded into the LLM context window.
 7.1 Disclosure Levels
 7.2 Context Manager
@@ -673,7 +673,7 @@ impl ContextManager {
     /// Remaining budget.
     pub fn tokens_remaining(&self) -> usize;
 7.3 Token Estimator
-8. Crate: skx-enforce
+8. Crate: skm-enforce
 Deterministic execution guardrails. The LLM cannot override these.
 8.1 Hook System
 /// Hook that runs BEFORE a skill is activated.
@@ -838,7 +838,7 @@ impl EnforcementPipeline {
         ctx: &EnforcementContext,
     ) -> Result<HookDecision>;
 }
-9. Crate: skx-learn
+9. Crate: skm-learn
 Closed-loop optimization: test, measure, improve.
 9.1 Trigger Test Harness
 /// Evaluation harness for testing skill selection accuracy.
@@ -1022,7 +1022,7 @@ pub enum Feedback {
 // Built-in stores
 pub struct SqliteAnalyticsStore { /* ... */ }  // Feature: analytics-sqlite
 pub struct InMemoryAnalyticsStore { /* ... */ }
-10. Crate: skx-cli
+10. Crate: skm-cli
 Developer CLI for the full skill lifecycle.
 ase — Agent Skill Engine CLI
 USAGE:
@@ -1076,12 +1076,12 @@ Re-exports everything for simple single-dependency usage.
 // In user's Cargo.toml:
 // [dependencies]
 // ase = { version = "0.1", features = ["embed-bge-m3"] }
-pub use skx_core::*;
-pub use skx_select::*;
-pub use skx_embed::*;
-pub use skx_disclose::*;
-pub use skx_enforce::*;
-pub use skx_learn::*;
+pub use skm_core::*;
+pub use skm_select::*;
+pub use skm_embed::*;
+pub use skm_disclose::*;
+pub use skm_enforce::*;
+pub use skm_learn::*;
 Quick start:
 use ase::prelude::*;
 #[tokio::main]
@@ -1252,28 +1252,28 @@ Memory per skill (with embeddings)
 4 × 1024-dim vectors
 16. Roadmap
 v0.1 — Foundation
-skx-core : Parser, registry, filesystem watching
-skx-select : Trigger strategy, cascade framework
-skx-cli : init , validate , list , select
+skm-core : Parser, registry, filesystem watching
+skm-select : Trigger strategy, cascade framework
+skm-cli : init , validate , list , select
 Golden test suite
 v0.2 — Intelligence
-skx-embed : BGE-M3 + MiniLM providers, multi-component embeddings, index
-skx-select : Semantic strategy, adaptive-k
-skx-disclose : Progressive disclosure, token budgeting
-skx-cli : index , bench
+skm-embed : BGE-M3 + MiniLM providers, multi-component embeddings, index
+skm-select : Semantic strategy, adaptive-k
+skm-disclose : Progressive disclosure, token budgeting
+skm-cli : index , bench
 v0.3 — Safety
-skx-enforce : Hook system, policy engine, output validators
-skx-cli : Policy file loading
+skm-enforce : Hook system, policy engine, output validators
+skm-cli : Policy file loading
 v0.4 — Learning
-skx-learn : Trigger test harness, metrics, usage analytics
-skx-cli : test , stats
+skm-learn : Trigger test harness, metrics, usage analytics
+skm-cli : test , stats
 v0.5 — Optimization
-skx-learn : Description optimizer
-skx-embed : Qwen3, GTE, API providers
-skx-select : LLM strategy, few-shot enhanced
-skx-cli : optimize
+skm-learn : Description optimizer
+skm-embed : Qwen3, GTE, API providers
+skm-select : LLM strategy, few-shot enhanced
+skm-cli : optimize
 v1.0 — Production
-skx-cli : serve  (HTTP API)
+skm-cli : serve  (HTTP API)
 Prometheus metrics export
 Comprehensive documentation
 Published to crates.io

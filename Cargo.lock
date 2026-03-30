@@ -2736,20 +2736,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx"
+name = "skm"
 version = "0.1.0"
 dependencies = [
- "skx-cli",
- "skx-core",
- "skx-disclose",
- "skx-embed",
- "skx-enforce",
- "skx-learn",
- "skx-select",
+ "skm-cli",
+ "skm-core",
+ "skm-disclose",
+ "skm-embed",
+ "skm-enforce",
+ "skm-learn",
+ "skm-select",
 ]
 
 [[package]]
-name = "skx-cli"
+name = "skm-cli"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -2758,12 +2758,12 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_yaml",
- "skx-core",
- "skx-disclose",
- "skx-embed",
- "skx-enforce",
- "skx-learn",
- "skx-select",
+ "skm-core",
+ "skm-disclose",
+ "skm-embed",
+ "skm-enforce",
+ "skm-learn",
+ "skm-select",
  "tempfile",
  "thiserror",
  "tokio",
@@ -2772,7 +2772,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx-core"
+name = "skm-core"
 version = "0.1.0"
 dependencies = [
  "notify",
@@ -2787,11 +2787,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx-disclose"
+name = "skm-disclose"
 version = "0.1.0"
 dependencies = [
  "serde",
- "skx-core",
+ "skm-core",
  "tempfile",
  "thiserror",
  "tokio",
@@ -2799,7 +2799,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx-embed"
+name = "skm-embed"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -2809,7 +2809,7 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
- "skx-core",
+ "skm-core",
  "tempfile",
  "thiserror",
  "tokio",
@@ -2818,7 +2818,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx-enforce"
+name = "skm-enforce"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -2827,7 +2827,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_yaml",
- "skx-core",
+ "skm-core",
  "tempfile",
  "thiserror",
  "tokio",
@@ -2835,7 +2835,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx-learn"
+name = "skm-learn"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -2844,8 +2844,8 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_yaml",
- "skx-core",
- "skx-select",
+ "skm-core",
+ "skm-select",
  "tempfile",
  "thiserror",
  "tokio",
@@ -2853,7 +2853,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "skx-select"
+name = "skm-select"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -2861,9 +2861,9 @@ dependencies = [
  "regex",
  "serde",
  "serde_json",
- "skx-core",
- "skx-disclose",
- "skx-embed",
+ "skm-core",
+ "skm-disclose",
+ "skm-embed",
  "tempfile",
  "thiserror",
  "tokio",

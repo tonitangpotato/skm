@@ -1,61 +1,61 @@
 nodes:
   # === Project Root ===
-  - id: skx
+  - id: skm
     type: project
-    title: "agent-skill-engine (skx)"
+    title: "agent-skill-engine (skm)"
     description: "The missing runtime layer for Agent Skills — selection, enforcement, and optimization as a framework-agnostic Rust crate"
     status: in_progress
 
   # === Crates (Components) ===
   - id: crate-core
     type: component
-    title: "skx-core"
+    title: "skm-core"
     description: "Skill schema, parser, registry, filesystem watching"
     status: in_progress
 
   - id: crate-embed
     type: component
-    title: "skx-embed"
+    title: "skm-embed"
     description: "Embedding abstraction + providers (BGE-M3, Qwen3, MiniLM, API)"
     status: todo
 
   - id: crate-select
     type: component
-    title: "skx-select"
+    title: "skm-select"
     description: "Multi-strategy cascading selection engine"
     status: todo
 
   - id: crate-disclose
     type: component
-    title: "skx-disclose"
+    title: "skm-disclose"
     description: "Progressive disclosure / context management"
     status: todo
 
   - id: crate-enforce
     type: component
-    title: "skx-enforce"
+    title: "skm-enforce"
     description: "Execution guardrails, hooks, policy engine"
     status: todo
 
   - id: crate-learn
     type: component
-    title: "skx-learn"
+    title: "skm-learn"
     description: "Evaluation, metrics, optimization, usage analytics"
     status: todo
 
   - id: crate-cli
     type: component
-    title: "skx-cli"
-    description: "Developer CLI (skx command)"
+    title: "skm-cli"
+    description: "Developer CLI (skm command)"
     status: todo
 
   - id: crate-facade
     type: component
-    title: "skx (facade)"
+    title: "skm (facade)"
     description: "Re-exports everything for single-dependency usage"
     status: todo
 
-  # === skx-core Tasks ===
+  # === skm-core Tasks ===
   - id: task-workspace-setup
     type: task
     title: "Set up Cargo workspace with all crate stubs"
@@ -98,7 +98,7 @@ nodes:
     description: "Tests for schema validation, parser (valid/invalid/edge cases), registry operations"
     status: todo
 
-  # === skx-embed Tasks ===
+  # === skm-embed Tasks ===
   - id: task-embed-trait
     type: task
     title: "EmbeddingProvider trait"
@@ -147,7 +147,7 @@ nodes:
     description: "Mock provider tests, index build/query, cosine similarity"
     status: todo
 
-  # === skx-select Tasks ===
+  # === skm-select Tasks ===
   - id: task-select-trait
     type: task
     title: "SelectionStrategy trait"
@@ -190,7 +190,7 @@ nodes:
     description: "Per-strategy tests, cascade integration, confidence propagation"
     status: todo
 
-  # === skx-disclose Tasks ===
+  # === skm-disclose Tasks ===
   - id: task-disclose-levels
     type: task
     title: "Disclosure levels"
@@ -215,7 +215,7 @@ nodes:
     description: "Budget enforcement, activation/deactivation, token estimation accuracy"
     status: todo
 
-  # === skx-enforce Tasks ===
+  # === skm-enforce Tasks ===
   - id: task-enforce-hooks
     type: task
     title: "Hook system"
@@ -246,7 +246,7 @@ nodes:
     description: "Hook cancel/modify/allow, policy evaluation, validator edge cases"
     status: todo
 
-  # === skx-learn Tasks ===
+  # === skm-learn Tasks ===
   - id: task-learn-harness
     type: task
     title: "Trigger test harness"
@@ -277,7 +277,7 @@ nodes:
     description: "Test harness execution, metrics accuracy, analytics store"
     status: todo
 
-  # === skx-cli Tasks ===
+  # === skm-cli Tasks ===
   - id: task-cli-init
     type: task
     title: "CLI: init + validate + list"
@@ -342,41 +342,41 @@ nodes:
   - id: task-python
     type: task
     title: "Python bindings (PyO3)"
-    description: "skx-python crate wrapping core + select + embed for pip install"
+    description: "skm-python crate wrapping core + select + embed for pip install"
     status: todo
 
 edges:
   # Project → crate containment
   - from: crate-core
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-embed
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-select
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-disclose
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-enforce
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-learn
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-cli
-    to: skx
+    to: skm
     relation: part_of
 
   - from: crate-facade
-    to: skx
+    to: skm
     relation: part_of
 
   # Workspace setup is first
