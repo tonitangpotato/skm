@@ -144,141 +144,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ase"
-version = "0.1.0"
-dependencies = [
- "ase-cli",
- "ase-core",
- "ase-disclose",
- "ase-embed",
- "ase-enforce",
- "ase-learn",
- "ase-select",
-]
-
-[[package]]
-name = "ase-cli"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "ase-core",
- "ase-disclose",
- "ase-embed",
- "ase-enforce",
- "ase-learn",
- "ase-select",
- "axum",
- "clap",
- "serde",
- "serde_json",
- "serde_yaml",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "ase-core"
-version = "0.1.0"
-dependencies = [
- "notify",
- "serde",
- "serde_json",
- "serde_yaml",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
- "xxhash-rust",
-]
-
-[[package]]
-name = "ase-disclose"
-version = "0.1.0"
-dependencies = [
- "ase-core",
- "serde",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "ase-embed"
-version = "0.1.0"
-dependencies = [
- "ase-core",
- "async-trait",
- "bincode",
- "fastembed",
- "lru",
- "reqwest",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
- "xxhash-rust",
-]
-
-[[package]]
-name = "ase-enforce"
-version = "0.1.0"
-dependencies = [
- "ase-core",
- "async-trait",
- "glob",
- "regex",
- "serde",
- "serde_json",
- "serde_yaml",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "ase-learn"
-version = "0.1.0"
-dependencies = [
- "ase-core",
- "ase-select",
- "async-trait",
- "hdrhistogram",
- "rusqlite",
- "serde",
- "serde_json",
- "serde_yaml",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "ase-select"
-version = "0.1.0"
-dependencies = [
- "ase-core",
- "ase-disclose",
- "ase-embed",
- "async-trait",
- "glob",
- "regex",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror",
- "tokio",
- "tracing",
-]
-
-[[package]]
 name = "async-trait"
 version = "0.1.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2868,6 +2733,141 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "95890f873bec569a0362c235787f3aca6e1e887302ba4840839bcc6459c42da6"
 dependencies = [
  "quote",
+]
+
+[[package]]
+name = "skx"
+version = "0.1.0"
+dependencies = [
+ "skx-cli",
+ "skx-core",
+ "skx-disclose",
+ "skx-embed",
+ "skx-enforce",
+ "skx-learn",
+ "skx-select",
+]
+
+[[package]]
+name = "skx-cli"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "axum",
+ "clap",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "skx-core",
+ "skx-disclose",
+ "skx-embed",
+ "skx-enforce",
+ "skx-learn",
+ "skx-select",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "skx-core"
+version = "0.1.0"
+dependencies = [
+ "notify",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "xxhash-rust",
+]
+
+[[package]]
+name = "skx-disclose"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "skx-core",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "skx-embed"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bincode",
+ "fastembed",
+ "lru",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "skx-core",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "xxhash-rust",
+]
+
+[[package]]
+name = "skx-enforce"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "glob",
+ "regex",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "skx-core",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "skx-learn"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "hdrhistogram",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "skx-core",
+ "skx-select",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "skx-select"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "glob",
+ "regex",
+ "serde",
+ "serde_json",
+ "skx-core",
+ "skx-disclose",
+ "skx-embed",
+ "tempfile",
+ "thiserror",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]

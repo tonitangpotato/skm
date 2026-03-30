@@ -1,14 +1,14 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/ase-core",
-    "crates/ase-embed",
-    "crates/ase-select",
-    "crates/ase-disclose",
-    "crates/ase-enforce",
-    "crates/ase-learn",
-    "crates/ase-cli",
-    "crates/ase",
+    "crates/skx-core",
+    "crates/skx-embed",
+    "crates/skx-select",
+    "crates/skx-disclose",
+    "crates/skx-enforce",
+    "crates/skx-learn",
+    "crates/skx-cli",
+    "crates/skx",
 ]
 
 [workspace.package]
@@ -21,13 +21,13 @@ rust-version = "1.85"
 
 [workspace.dependencies]
 # Internal crates
-ase-core = { path = "crates/ase-core" }
-ase-embed = { path = "crates/ase-embed" }
-ase-select = { path = "crates/ase-select" }
-ase-disclose = { path = "crates/ase-disclose" }
-ase-enforce = { path = "crates/ase-enforce" }
-ase-learn = { path = "crates/ase-learn" }
-ase-cli = { path = "crates/ase-cli" }
+skx-core = { path = "crates/skx-core" }
+skx-embed = { path = "crates/skx-embed" }
+skx-select = { path = "crates/skx-select" }
+skx-disclose = { path = "crates/skx-disclose" }
+skx-enforce = { path = "crates/skx-enforce" }
+skx-learn = { path = "crates/skx-learn" }
+skx-cli = { path = "crates/skx-cli" }
 
 # Serialization
 serde = { version = "1.0", features = ["derive"] }

@@ -1,61 +1,61 @@
 nodes:
   # === Project Root ===
-  - id: ase
+  - id: skx
     type: project
-    title: "agent-skill-engine (ase)"
+    title: "agent-skill-engine (skx)"
     description: "The missing runtime layer for Agent Skills — selection, enforcement, and optimization as a framework-agnostic Rust crate"
     status: in_progress
 
   # === Crates (Components) ===
   - id: crate-core
     type: component
-    title: "ase-core"
+    title: "skx-core"
     description: "Skill schema, parser, registry, filesystem watching"
     status: in_progress
 
   - id: crate-embed
     type: component
-    title: "ase-embed"
+    title: "skx-embed"
     description: "Embedding abstraction + providers (BGE-M3, Qwen3, MiniLM, API)"
     status: todo
 
   - id: crate-select
     type: component
-    title: "ase-select"
+    title: "skx-select"
     description: "Multi-strategy cascading selection engine"
     status: todo
 
   - id: crate-disclose
     type: component
-    title: "ase-disclose"
+    title: "skx-disclose"
     description: "Progressive disclosure / context management"
     status: todo
 
   - id: crate-enforce
     type: component
-    title: "ase-enforce"
+    title: "skx-enforce"
     description: "Execution guardrails, hooks, policy engine"
     status: todo
 
   - id: crate-learn
     type: component
-    title: "ase-learn"
+    title: "skx-learn"
     description: "Evaluation, metrics, optimization, usage analytics"
     status: todo
 
   - id: crate-cli
     type: component
-    title: "ase-cli"
-    description: "Developer CLI (ase command)"
+    title: "skx-cli"
+    description: "Developer CLI (skx command)"
     status: todo
 
   - id: crate-facade
     type: component
-    title: "ase (facade)"
+    title: "skx (facade)"
     description: "Re-exports everything for single-dependency usage"
     status: todo
 
-  # === ase-core Tasks ===
+  # === skx-core Tasks ===
   - id: task-workspace-setup
     type: task
     title: "Set up Cargo workspace with all crate stubs"
@@ -98,7 +98,7 @@ nodes:
     description: "Tests for schema validation, parser (valid/invalid/edge cases), registry operations"
     status: todo
 
-  # === ase-embed Tasks ===
+  # === skx-embed Tasks ===
   - id: task-embed-trait
     type: task
     title: "EmbeddingProvider trait"
@@ -147,7 +147,7 @@ nodes:
     description: "Mock provider tests, index build/query, cosine similarity"
     status: todo
 
-  # === ase-select Tasks ===
+  # === skx-select Tasks ===
   - id: task-select-trait
     type: task
     title: "SelectionStrategy trait"
@@ -190,7 +190,7 @@ nodes:
     description: "Per-strategy tests, cascade integration, confidence propagation"
     status: todo
 
-  # === ase-disclose Tasks ===
+  # === skx-disclose Tasks ===
   - id: task-disclose-levels
     type: task
     title: "Disclosure levels"
@@ -215,7 +215,7 @@ nodes:
     description: "Budget enforcement, activation/deactivation, token estimation accuracy"
     status: todo
 
-  # === ase-enforce Tasks ===
+  # === skx-enforce Tasks ===
   - id: task-enforce-hooks
     type: task
     title: "Hook system"
@@ -246,7 +246,7 @@ nodes:
     description: "Hook cancel/modify/allow, policy evaluation, validator edge cases"
     status: todo
 
-  # === ase-learn Tasks ===
+  # === skx-learn Tasks ===
   - id: task-learn-harness
     type: task
     title: "Trigger test harness"
@@ -277,7 +277,7 @@ nodes:
     description: "Test harness execution, metrics accuracy, analytics store"
     status: todo
 
-  # === ase-cli Tasks ===
+  # === skx-cli Tasks ===
   - id: task-cli-init
     type: task
     title: "CLI: init + validate + list"
@@ -342,41 +342,41 @@ nodes:
   - id: task-python
     type: task
     title: "Python bindings (PyO3)"
-    description: "ase-python crate wrapping core + select + embed for pip install"
+    description: "skx-python crate wrapping core + select + embed for pip install"
     status: todo
 
 edges:
   # Project → crate containment
   - from: crate-core
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-embed
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-select
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-disclose
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-enforce
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-learn
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-cli
-    to: ase
+    to: skx
     relation: part_of
 
   - from: crate-facade
-    to: ase
+    to: skx
     relation: part_of
 
   # Workspace setup is first

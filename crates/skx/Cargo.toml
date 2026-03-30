@@ -1,0 +1,29 @@
+[package]
+name = "skx"
+description = "Agent Skill Engine - Selection, enforcement, and optimization for SKILL.md"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[features]
+default = ["embed-bge-m3"]
+embed-bge-m3 = ["skx-embed/embed-bge-m3"]
+embed-minilm = ["skx-embed/embed-minilm"]
+embed-openai = ["skx-embed/embed-openai"]
+embed-cohere = ["skx-embed/embed-cohere"]
+embed-compat = ["skx-embed/embed-compat"]
+no-embed = ["skx-embed/no-embed"]
+analytics-sqlite = ["skx-learn/analytics-sqlite"]
+analytics-memory = ["skx-learn/analytics-memory"]
+http-server = ["skx-cli/http-server"]
+
+[dependencies]
+skx-core = { workspace = true }
+skx-embed = { workspace = true }
+skx-select = { workspace = true }
+skx-disclose = { workspace = true }
+skx-enforce = { workspace = true }
+skx-learn = { workspace = true }
+skx-cli = { workspace = true }

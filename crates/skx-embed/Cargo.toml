@@ -1,0 +1,39 @@
+[package]
+name = "skx-embed"
+description = "Embedding abstraction and providers for Agent Skills"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[features]
+default = ["embed-bge-m3"]
+embed-bge-m3 = ["dep:fastembed"]
+embed-minilm = ["dep:fastembed"]
+embed-openai = ["dep:reqwest"]
+embed-cohere = ["dep:reqwest"]
+embed-compat = ["dep:reqwest"]
+no-embed = []
+
+[dependencies]
+skx-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+bincode = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tokio = { workspace = true }
+async-trait = { workspace = true }
+lru = { workspace = true }
+xxhash-rust = { workspace = true }
+
+# Optional: local embedding
+fastembed = { workspace = true, optional = true }
+
+# Optional: API embedding
+reqwest = { workspace = true, optional = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
