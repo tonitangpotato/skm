@@ -5,7 +5,7 @@
 //!
 //! ## Quick Start
 //!
-//! ```rust,ignore
+//! ```text
 //! use skm::prelude::*;
 //!
 //! #[tokio::main]
