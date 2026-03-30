@@ -1,0 +1,30 @@
+[package]
+name = "skm-python"
+description = "Python bindings for SKM Agent Skill Engine"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["agent", "skills", "ai", "llm", "python", "pyo3"]
+categories = ["development-tools", "api-bindings"]
+rust-version.workspace = true
+
+[lib]
+name = "_skm_native"
+crate-type = ["cdylib"]
+
+[features]
+default = ["embed-bge-m3"]
+embed-bge-m3 = ["skm-embed/embed-bge-m3"]
+embed-minilm = ["skm-embed/embed-minilm"]
+
+[dependencies]
+skm-core = { workspace = true }
+skm-embed = { workspace = true }
+skm-select = { workspace = true }
+skm-enforce = { workspace = true }
+
+pyo3 = { version = "0.25", features = ["extension-module"] }
+tokio = { workspace = true }
