@@ -9,6 +9,8 @@ members = [
     "crates/skm-learn",
     "crates/skm-cli",
     "crates/skm",
+    "crates/skm-node",
+    "crates/skm-python",
 ]
 
 [workspace.package]

@@ -1,0 +1,64 @@
+{
+  "name": "@skm/core",
+  "version": "0.1.0",
+  "description": "Agent Skill Engine - Node.js bindings",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonitangpotato/skm"
+  },
+  "keywords": [
+    "agent",
+    "skills",
+    "ai",
+    "llm",
+    "napi-rs"
+  ],
+  "author": "tonitangpotato",
+  "license": "MIT OR Apache-2.0",
+  "engines": {
+    "node": ">= 18"
+  },
+  "napi": {
+    "name": "skm",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "aarch64-apple-darwin",
+        "x86_64-apple-darwin",
+        "x86_64-unknown-linux-gnu",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-pc-windows-msvc",
+        "aarch64-pc-windows-msvc"
+      ]
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "test": "ava",
+    "universal": "napi universal",
+    "version": "napi version"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.0",
+    "ava": "^6.1.0"
+  },
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "timeout": "3m",
+    "workerThreads": false,
+    "files": [
+      "__test__/**/*.spec.ts"
+    ]
+  }
+}

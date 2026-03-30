@@ -1,0 +1,44 @@
+[package]
+name = "skm-node"
+description = "NAPI-RS Node.js bindings for the SKM skill engine"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["agent", "skills", "ai", "llm", "napi-rs", "nodejs"]
+categories = ["development-tools", "api-bindings"]
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = ["embed-bge-m3"]
+embed-bge-m3 = ["skm-embed/embed-bge-m3"]
+embed-minilm = ["skm-embed/embed-minilm"]
+no-embed = ["skm-embed/no-embed"]
+
+[dependencies]
+# Internal crates
+skm-core = { workspace = true }
+skm-embed = { workspace = true }
+skm-select = { workspace = true }
+
+# NAPI-RS
+napi = { version = "2", default-features = false, features = ["async", "napi8", "serde-json"] }
+napi-derive = "2"
+
+# Async runtime
+tokio = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Error handling
+thiserror = { workspace = true }
+
+[build-dependencies]
+napi-build = "2"
